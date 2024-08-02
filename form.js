@@ -4,9 +4,20 @@ let server = http.createServer((req,res)=>{
 
     let url = req.url
     if(url=="/"){
-        res.setHeader('content-type','text/html')
-        res.write("<html> <body><form method='post' action='/message'><input name='input' type='text'/><button type='submit'>submit</button</form></body> </html>")
-        return res.end()
+
+        fs.readFile('message.txt','utf-8',(err,data)=>{
+
+            // console.log("88")
+            res.setHeader('content-type','text/html')
+            res.write("<html><body>")
+            if(data){
+                data = data.split("+").join(" ")
+                res.write("<p>"+ data +"</p>")
+            }
+            res.write("<form method='post' action='/message'><input name='input' type='text'/><button type='submit'>submit</button</form>")
+            res.write("</body></html>")
+            return res.end()
+        })
     }
     if(url=='/message' && req.method=='POST'){
 
@@ -28,14 +39,9 @@ let server = http.createServer((req,res)=>{
             
             fs.writeFile('message.txt',msg,(err)=>{
 
-                //now read the file
-                fs.readFile('message.txt','utf-8',(err,data)=>{
-
-                    console.log("data from file ",data)
-                    res.statusCode=302
-                    res.setHeader('Location','/') //after submission the response will make the client url back to "/"
-                    return res.end()
-                })
+                res.statusCode=302
+                res.setHeader('Location','/') //after submission the response will make the client url back to "/"
+                return res.end()
             })
         })
 
