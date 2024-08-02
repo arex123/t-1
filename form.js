@@ -12,24 +12,30 @@ let server = http.createServer((req,res)=>{
 
         let body=[]
         req.on('data',(chunk)=>{
-            console.log("chunk : ",chunk)
+            // console.log("chunk : ",chunk)
             body.push(chunk)
         })
 
         req.on('end',()=>{
             let parsedData = Buffer.concat(body).toString()
-            console.log("parsed data ",parsedData)
+            // console.log("parsed data ",parsedData)
             let msg = parsedData.split("=")[1]
-            console.log("msg ",msg)
+            // console.log("msg ",msg)
             // fs.writeFileSync('message.txt',msg) //this is blocking code 
             // res.statusCode=302
             // res.setHeader('Location','/') //after submission the response will make the client url back to "/"
             // return res.end()
             
             fs.writeFile('message.txt',msg,(err)=>{
-                res.statusCode=302
-                res.setHeader('Location','/') //after submission the response will make the client url back to "/"
-                return res.end()
+
+                //now read the file
+                fs.readFile('message.txt','utf-8',(err,data)=>{
+
+                    console.log("data from file ",data)
+                    res.statusCode=302
+                    res.setHeader('Location','/') //after submission the response will make the client url back to "/"
+                    return res.end()
+                })
             })
         })
 
