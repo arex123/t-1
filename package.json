@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon form",
-    "start-server":"nodemon form"
+    "start": "nodemon app",
+    "start-server": "nodemon app"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.4"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
