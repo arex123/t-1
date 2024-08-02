@@ -10,6 +10,9 @@ app.use((req,res,next)=>{
 
 app.use((req,res,next)=>{
     console.log("second middleware")
+    res.send( { "key1": "value" })
 })
+
+
 
 app.listen(5001)
