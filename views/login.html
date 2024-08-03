@@ -1,25 +1,17 @@
 <html>
-  <body>
-    <form action="/login" method="POST">
-      <input name="name" required type="text" placeholder="enter name" /><button
-        type="submit"
-      >
-        Login
-      </button>
+<head>
+  <title>chat app</title>
+    
+    <style>
+      body{
+        /* background-color: red; */
+      }
+    </style>
+</head>
+<body>
+    <form onsubmit="localStorage.setItem(`username`, document.getElementById(`username`).value)" action="/login" method="POST">
+      <input id="username" type="text" name="title" required><button type="submit">login</button>
     </form>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.3/axios.min.js" integrity="sha512-zJXKBryKlsiDaWcWQ9fuvy50SG03/Qc5SqfLXxHmk9XiUUbcD9lXYjHDBxLFOuZSU6ULXaJ69bd7blSMEgxXNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        let form = document.querySelector('form')
-        form.addEventListener('submit',(event)=>{
-            event.preventDefault()
-            let data = {
-                name:event.target.name.value
-            }
-            localStorage.setItem('username',event.target.name.value)
-            axios.post('http://localhost:5001/login',data)
-            .then((d)=>console.log("done"))
-            .catch((e)=>console.log("error while submitting",e))
-        })
-    </script>
+    
   </body>
 </html>
