@@ -2,22 +2,18 @@ const http = require('http')
 const express = require('express')
 const bodyparser = require('body-parser')
 
+const adminRoutes = require('./routes/admin')
+const shopRoutes = require('./routes/shop')
+
 const app = express()
+
 app.use(bodyparser.urlencoded({extended:false}))
 
-app.use('/add-product',(req,res)=>{
-    res.send('<html><body><form action="/product" method="POST"><input name="movie" type="text" placeholder="movie"/><input name="size" type="number" placeholder="enter size" /><button type="submit">submit</button></form></body></html>')
-})
+app.use("/admin",adminRoutes)
+app.use("/shop",shopRoutes)
 
-app.post('/product',(req,res)=>{
-    console.log("body data")
-    console.log(req.body)
-    res.redirect('/')
+app.use((req,res)=>{
+    res.status(404).send("<h2>Page not found</h2>")
 })
-
-app.use('/',(req,res)=>{
-    res.send("form submitted")
-})
-
 
 app.listen(5001)
