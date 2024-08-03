@@ -1,11 +1,11 @@
 const express = require('express')
 const bodyparser = require('body-parser')
 const app = express()
+const path = require('path')
 app.use(bodyparser.urlencoded({extended:false}))
-
+app.use(express.static(path.join(__dirname,'public')))
 const userRoutes = require('./routes/user')
 const chatRoutes = require('./routes/chat')
-const path = require('path')
 
 
 app.use(userRoutes)
