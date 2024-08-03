@@ -1,0 +1,18 @@
+<html>
+  <body>
+    <form action="/app/message" method="POST">
+      <input name="username" id="username" hidden/>
+      <input
+        name="message"
+        required
+        id="msg"
+        type="text"
+        placeholder="type message"
+      /><button type="submit">send message</button>
+    </form>
+
+    <script>
+      document.getElementById('username').value = localStorage.getItem('username')
+    </script>
+  </body>
+</html>
